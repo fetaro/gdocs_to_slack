@@ -1,8 +1,8 @@
-# 目的
+# gdocs_to_slack: Google Docsの箇条書きをSlackにきれいにコピーできるツール
 
-Google Docsの箇条書きをSlackにコピーするツール
+( 逆方向のツール[slack_to_gdocs](https://github.com/fetaro/slack_to_gdocs) もあります )
 
-## 解決した課題
+## 解決したい課題
 
 Google Docsの箇条書きをMacのクリップボードにコピーしてSlackにペーストすると、以下のように箇条書きが崩れてしまう。
 
@@ -27,7 +27,7 @@ Google Docsの箇条書きをMacのクリップボードにコピーしてSlack�
 
 ### 実行プログラムのダウンロード
 Apple siliconのMacOS(M1,M2など)であれば、 [こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/main/dist/arm64/gdocs_to_slack) をダウンロードしてください。
-Intell Macの場合は、[こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/main/dist/x86_64/gdocs_to_slack) をダウンロードしてください。
+Intel Macの場合は、[こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/main/dist/x86_64/gdocs_to_slack) をダウンロードしてください。
 ### 実行権限の付与
 Macのターミナルを開いて、ダウンロードしたファイルに対して以下のコマンドを実行し実行権限を与えてください。
 
@@ -37,17 +37,21 @@ chmod 755 ./gdocs_to_slack
 
 ## 使い方
 
-1. Google Docsの箇条書きをコピーします
+1. Google Docsの箇条書きをコピーし、クリップボードにGoogle Docsの箇条書きがある状態にします
 
-2. クリップボードにGoogle Docsの箇条書きがある状態で以下のコマンドを実行します
+2. ツールを実行します。ターミナルで以下のように実行してください。
 
 ```bash
 ./gdocs_to_slack
 ```
 
-これでSlackに貼り付け可能なデータがクリップボードに書き込まれました
+クリップボードの内容が書き換わり、Slackに貼り付け可能なデータになります
 
 3. Slackにてペーストします
+
+### うまく動かないと思ったら
+
+コマンドに `-d` オプションを付けて実行してください。処理内容が見れます。
 
 ### (オプション)テキストとしてペーストする場合
 
@@ -66,14 +70,12 @@ chmod 755 ./gdocs_to_slack
     - インデントレベル２のC
 ```
 
-### デバッグ
-
-`-d` オプションを付けるとデバッグモードになります
-
-```bash
-./gdocs_to_slack -d
-```
 
 ## 開発者用
 
 [FOR_DEVELOPER.md](FOR_DEVELOPER.md) を参照してください。
+
+
+# その他
+
+似たようなツールで
