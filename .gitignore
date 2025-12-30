@@ -1,0 +1,9 @@
+# Binaries
+# Ignore the binary if built at root
+/docs_to_slack
+
+# OS specific
+.DS_Store
+
+# Editor
+.vscode/
