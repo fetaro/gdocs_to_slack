@@ -46,6 +46,8 @@ import (
 	"flag"
 	"fmt"
 	"unsafe"
+
+	"github.com/fetaro/docks_to_slack_go/src"
 )
 
 // readClipboardHTML はクリップボードからHTMLデータを読み込みます
@@ -77,7 +79,7 @@ func setClipboardRichText(data []byte, plainText string) {
 }
 
 func createChromiumData(plainText string, textyJSON map[string]interface{}) []byte {
-	writer := NewPickleWriter()
+	writer := src.NewPickleWriter()
 
 	// Entry Count (uint32)
 	writer.WriteUInt32(2)
@@ -127,7 +129,7 @@ func main() {
 		fmt.Println(htmlContent)
 	}
 
-	generator := NewSlackListGenerator()
+	generator := src.NewSlackListGenerator()
 	result, err := generator.Generate(htmlContent)
 	if err != nil {
 		fmt.Println("Error generating result:", err)
