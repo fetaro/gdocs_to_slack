@@ -74,8 +74,3 @@ chmod 755 ./gdocs_to_slack
 ## 開発者用
 
 [FOR_DEVELOPER.md](FOR_DEVELOPER.md) を参照してください。
-
-
-# その他
-
-似たようなツールで
