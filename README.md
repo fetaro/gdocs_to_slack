@@ -26,8 +26,8 @@ Google Docsの箇条書きをMacのクリップボードにコピーしてSlack�
 ## インストール方法
 
 ### 実行プログラムのダウンロード
-Apple siliconのMacOS(M1,M2など)であれば、 [こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/refs/heads/main/dist/arm64/gdocs_to_slack) をダウンロードしてください。
-Intell Macの場合は、[こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/refs/heads/main/dist/x86_64/gdocs_to_slack) をダウンロードしてください。
+Apple siliconのMacOS(M1,M2など)であれば、 [こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/main/dist/arm64/gdocs_to_slack) をダウンロードしてください。
+Intell Macの場合は、[こちらの実行ファイル](https://raw.githubusercontent.com/fetaro/gdocs_to_slack/main/dist/x86_64/gdocs_to_slack) をダウンロードしてください。
 ### 実行権限の付与
 Macのターミナルを開いて、ダウンロードしたファイルに対して以下のコマンドを実行し実行権限を与えてください。
 
