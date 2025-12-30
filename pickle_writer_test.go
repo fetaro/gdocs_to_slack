@@ -76,7 +76,7 @@ func TestPickleWriter_WriteString16(t *testing.T) {
 			// Verify Data
 			expectedRunes := utf16.Encode([]rune(tt.input))
 			dataBytes := payload[4 : 4+len(expectedRunes)*2]
-			
+
 			readRunes := make([]uint16, len(expectedRunes))
 			binary.Read(bytes.NewReader(dataBytes), binary.LittleEndian, &readRunes)
 
@@ -93,20 +93,20 @@ func TestPickleWriter_ComplexStructure(t *testing.T) {
 	// Simulate the structure used in main.go
 	// Entry Count (2) + Key1 + Value1
 	w := NewPickleWriter()
-	
+
 	w.WriteUInt32(2)
 	w.WriteString16("key")
 	w.WriteString16("val")
 
 	payload := w.GetPayload()
-	
+
 	// Expected size:
 	// Count: 4 bytes
 	// Key "key": 4 (len) + 6 (data) + 2 (padding) = 12 bytes
 	// Val "val": 4 (len) + 6 (data) + 2 (padding) = 12 bytes
 	// Total: 28 bytes
 	expectedSize := 4 + 12 + 12
-	
+
 	if len(payload) != expectedSize {
 		t.Errorf("Expected complex payload size %d, got %d", expectedSize, len(payload))
 	}
