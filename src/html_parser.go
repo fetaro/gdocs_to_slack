@@ -112,25 +112,24 @@ func (g *SlackListGenerator) Generate(htmlContent string) (*GenerateResult, erro
 		}
 	}
 
-	// Find first list
-	var firstList *html.Node
-	var findList func(*html.Node)
-	findList = func(n *html.Node) {
-		if firstList != nil {
-			return
-		}
+	// Find all top-level lists
+	var topLevelLists []*html.Node
+	var findLists func(*html.Node)
+	findLists = func(n *html.Node) {
 		if n.Type == html.ElementNode && (n.Data == "ul" || n.Data == "ol") {
-			firstList = n
+			topLevelLists = append(topLevelLists, n)
 			return
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			findList(c)
+			findLists(c)
 		}
 	}
-	findList(doc)
+	findLists(doc)
 
-	if firstList != nil {
-		processList(firstList, 0)
+	if len(topLevelLists) > 0 {
+		for _, listNode := range topLevelLists {
+			processList(listNode, 0)
+		}
 	} else {
 		// Fallback: treat as plain text
 		text := extractText(doc)
