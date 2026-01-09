@@ -112,25 +112,34 @@ func (g *SlackListGenerator) Generate(htmlContent string) (*GenerateResult, erro
 		}
 	}
 
-	// Find all top-level lists
-	var topLevelLists []*html.Node
-	var findLists func(*html.Node)
-	findLists = func(n *html.Node) {
-		if n.Type == html.ElementNode && (n.Data == "ul" || n.Data == "ol") {
-			topLevelLists = append(topLevelLists, n)
-			return
+	// Find and process top-level content
+	var traverse func(*html.Node)
+	traverse = func(n *html.Node) {
+		if n.Type == html.ElementNode {
+			if n.Data == "ul" || n.Data == "ol" {
+				processList(n, 0)
+				return
+			}
+			isHeader := len(n.Data) == 2 && (n.Data[0] == 'h') && (n.Data[1] >= '1' && n.Data[1] <= '6')
+			if n.Data == "p" || isHeader || n.Data == "blockquote" || n.Data == "pre" {
+				text := extractText(n)
+				text = strings.TrimSpace(text)
+				if text != "" {
+					ops = append(ops, map[string]interface{}{"insert": text})
+					ops = append(ops, map[string]interface{}{"insert": "\n"})
+					plainTextLines = append(plainTextLines, text)
+				}
+				return
+			}
 		}
+
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			findLists(c)
+			traverse(c)
 		}
 	}
-	findLists(doc)
+	traverse(doc)
 
-	if len(topLevelLists) > 0 {
-		for _, listNode := range topLevelLists {
-			processList(listNode, 0)
-		}
-	} else {
+	if len(ops) == 0 {
 		// Fallback: treat as plain text
 		text := extractText(doc)
 		text = strings.TrimSpace(text)
