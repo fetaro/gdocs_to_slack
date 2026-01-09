@@ -111,6 +111,35 @@ func TestSlackListGenerator_Generate(t *testing.T) {
 				{"attributes": map[string]interface{}{"list": "bullet"}, "insert": "\n"},
 			},
 		},
+		{
+			name: "Mixed Content (Text and Lists)",
+			htmlContent: `
+				<p>not-list-1</p>
+				<ul>
+					<li aria-level="1">level1-1</li>
+				</ul>
+				<ul>
+					<li aria-level="2">level2</li>
+				</ul>
+				<ul>
+					<li aria-level="1">level1-2</li>
+				</ul>
+				<p>not-list-2</p>
+			`,
+			wantPlainText: "not-list-1\n- level1-1\n    - level2\n- level1-2\nnot-list-2",
+			wantOps: []map[string]interface{}{
+				{"insert": "not-list-1"},
+				{"insert": "\n"},
+				{"insert": "level1-1"},
+				{"attributes": map[string]interface{}{"list": "bullet"}, "insert": "\n"},
+				{"insert": "level2"},
+				{"attributes": map[string]interface{}{"indent": 1, "list": "bullet"}, "insert": "\n"},
+				{"insert": "level1-2"},
+				{"attributes": map[string]interface{}{"list": "bullet"}, "insert": "\n"},
+				{"insert": "not-list-2"},
+				{"insert": "\n"},
+			},
+		},
 	}
 
 	for _, tt := range tests {
