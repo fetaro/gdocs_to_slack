@@ -93,6 +93,25 @@ func TestSlackListGenerator_Generate(t *testing.T) {
 			},
 		},
 		{
+			name: "Multiple Separated Lists",
+			htmlContent: `
+				<ul>
+					<li>List 1</li>
+				</ul>
+				<br>
+				<ul>
+					<li>List 2</li>
+				</ul>
+			`,
+			wantPlainText: "- List 1\n- List 2",
+			wantOps: []map[string]interface{}{
+				{"insert": "List 1"},
+				{"attributes": map[string]interface{}{"list": "bullet"}, "insert": "\n"},
+				{"insert": "List 2"},
+				{"attributes": map[string]interface{}{"list": "bullet"}, "insert": "\n"},
+			},
+		},
+		{
 			name: "Mixed Content (Text and Lists)",
 			htmlContent: `
 				<p>not-list-1</p>
